@@ -26,10 +26,13 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        window.cpp
+        window.cpp \
+    main.cpp \
+    window.cpp
 
 HEADERS += \
-        window.h
+        window.h \
+    window.h
 
 FORMS += \
         window.ui
@@ -38,3 +41,15 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc
+
+DISTFILES += \
+    images/defcon.jpg \
+    images/1.png \
+    images/2.png \
+    images/3.png \
+    images/4.png \
+    images/5.png \
+    images/nc.png
