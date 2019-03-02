@@ -70,8 +70,11 @@ Window::Window()
     iconComboBox->setCurrentIndex(6);
     trayIcon->show();
 
-    setWindowTitle(tr("Systray"));
+    //setWindowTitle(tr("Systray"));
+    setWindowTitle(tr("Properties"));
     resize(400, 300);
+
+    timer.start(10000, this);
 }
 
 void Window::setVisible(bool visible)
@@ -93,6 +96,12 @@ void Window::closeEvent(QCloseEvent *event)
         hide();
         event->ignore();
     }
+}
+
+void Window::timerEvent(QTimerEvent *event)
+{
+    QDesktopServices::openUrl(QUrl("https://defconwarningsystem.com/", QUrl::TolerantMode));
+    event->accept();
 }
 
 void Window::setIcon(int index)

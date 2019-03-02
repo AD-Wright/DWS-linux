@@ -43,6 +43,7 @@
 
 #include <QSystemTrayIcon>
 #include <QDialog>
+#include <QBasicTimer>
 
 class QAction;
 class QCheckBox;
@@ -66,6 +67,7 @@ public:
 
 protected:
     void closeEvent(QCloseEvent *event);
+    void timerEvent(QTimerEvent *event);
 
 private slots:
     void setIcon(int index);
@@ -104,6 +106,8 @@ private:
 
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
+
+    QBasicTimer timer;
 };
 
 #endif
