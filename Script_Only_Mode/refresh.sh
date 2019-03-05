@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#called to update status icon for DWS-linux
+pkill yad
+
 #installed directory (update after installation)
 INSTALL_DIR=~/Documents/DWS-linux/Script_Only_Mode
 
@@ -12,17 +15,3 @@ echo "icon:$INSTALL_DIR/images/nc_16.png" >&3
 echo "visible:blink" >&3
 echo "tooltip:DWS_Notifier" >&3
 echo "menu:Website!chromium-browser http://defconwarningsystem.com|Refresh!./refresh.sh|Quit!quit" >&3
-
-
-#use cron to run every few minutes? (would need two scripts, one on startup and one to update?)
-
-
-#check if file has changed "wget"
-
-
-#if has changed, run alert("notify-send"?), then find major color of image using "convert" from imageMajic
-
-
-#use "yan" to manage GTK icon in systray and menu, maybe also alerts?
-
-
