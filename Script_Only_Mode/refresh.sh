@@ -12,7 +12,15 @@
 INSTALL_DIR=~/Documents/DWS-linux/Script_Only_Mode
 
 #check current status icon color
-DEFCON_COLOR=$(convert defcon.jpg -crop '1x1+45+95' txt:- | tail -c 9)
+DEFCON_COLOR=$(convert $INSTALL_DIR/defcon.jpg -crop '1x1+45+95'  \
+txt:- | grep -oP 'b\([^\)]+' | tail -c +3)
+
+#split current color into components by comma
+RED=$(echo $DEFCON_COLOR | cut -d "," -f 1)
+GREEN=$(echo $DEFCON_COLOR | cut -d "," -f 2)
+BLUE=$(echo $DEFCON_COLOR | cut -d "," -f 3)
+
+echo $RED.$GREEN.$BLUE
 
 #start pipe for yad listening on exec 3
 PIPE=$(mktemp -u --tmpdir ${0##*/}.XXXXXXXX)
@@ -30,7 +38,17 @@ echo "tooltip:DWS_Notifier" >&3
 echo "menu:Website!chromium-browser \
 http://defconwarningsystem.com|Refresh!./refresh.sh|Quit!quit" >&3
 
-#update with correct, current icon
+#update with last downloaded icon
+if [ $BLUE == 92 ]; then
+    echo "icon:$INSTALL_DIR/images/5.png" >&3
+
+elif [ $BLUE == 254 ]; then
+    echo "icon:$INSTALL_DIR/images/4.png" >&3
+
+else
+    echo "icon:$INSTALL_DIR/images/nc.png" >&3
+fi
+#finish with 3,2,1
 
 
 #while loop (repeat every few minutes)
@@ -52,11 +70,23 @@ wget --no-netrc \
 NEW_TS=`stat -c %y $FILE`
 if [ "$CURRENT_TS" != "$NEW_TS" ]; then
     # read pixel from image, then update defcon index
-
+    DEFCON_COLOR=$(convert $INSTALL_DIR/defcon.jpg -crop '1x1+45+95'  \
+    txt:- | grep -oP 'b\([^\)]+' | tail -c +3)
+    RED=$(echo $DEFCON_COLOR | cut -d "," -f 1)
+    GREEN=$(echo $DEFCON_COLOR | cut -d "," -f 2)
+    BLUE=$(echo $DEFCON_COLOR | cut -d "," -f 3)
 
     # update yad with correct icon
+    if [ $BLUE == 92 ]; then
+        echo "icon:$INSTALL_DIR/images/5.png" >&3
 
+    elif [ $BLUE == 254 ]; then
+        echo "icon:$INSTALL_DIR/images/4.png" >&3
 
+    else
+        echo "icon:$INSTALL_DIR/images/nc.png" >&3
+    fi
+    #finish with 3,2,1
 
 
 fi
