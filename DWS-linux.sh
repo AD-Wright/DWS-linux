@@ -52,19 +52,19 @@ echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
 |Quit!quit" >&3
 
 # update icon according to last downloaded image
-if [ $BLUE == 92 ]; then
+if [ "$BLUE" == 92 ]; then
     echo "icon:$INSTALL_DIR/images/5.png" >&3
 
-elif [ $BLUE == 254 ]; then
+elif [ "$BLUE" == 254 ]; then
     echo "icon:$INSTALL_DIR/images/4.png" >&3
 
-#elif [ $BLUE == ?? ]; then
+#elif [ "$BLUE" == ?? ]; then
 #    echo "icon:$INSTALL_DIR/images/3.png" >&3
 
-#elif [ $BLUE == ?? ]; then
+#elif [ "$BLUE" == ?? ]; then
 #    echo "icon:$INSTALL_DIR/images/2.png" >&3
 
-#elif [ $BLUE == ?? ]; then
+#elif [ "$BLUE" == ?? ]; then
 #    echo "icon:$INSTALL_DIR/images/1.png" >&3
 
 else
@@ -80,8 +80,7 @@ FILE='defcon.jpg'
 CURRENT_TS=`stat -c %y $FILE`
 
 # run wget to see if image timestamp has changed on server
-wget --no-netrc \
- --no-http-keep-alive \
+wget --no-http-keep-alive \
  --no-cookies \
  --user-agent="DWS-linux_test" \
  --directory-prefix="$INSTALL_DIR" \
@@ -97,7 +96,7 @@ fi
 NEW_TS=`stat -c %y $FILE`
 if [ "$CURRENT_TS" != "$NEW_TS" ]; then
     # notify user if requested
-    if [ $NOTIFY == 1 ]; then
+    if [ "$NOTIFY" == 1 ]; then
         yad --image "$INSTALL_DIR/defcon.jpg" \
  --title "DEFCON level has changed" \
  --no-buttons
@@ -111,19 +110,19 @@ if [ "$CURRENT_TS" != "$NEW_TS" ]; then
     BLUE=$(echo $DEFCON_COLOR | cut -d "," -f 3)
 
     # update yad with correct icon
-    if [ $BLUE == 92 ]; then
+    if [ "$BLUE" == 92 ]; then
         echo "icon:$INSTALL_DIR/images/5.png" >&3
 
-    elif [ $BLUE == 254 ]; then
+    elif [ "$BLUE" == 254 ]; then
         echo "icon:$INSTALL_DIR/images/4.png" >&3
 
-#    elif [ $BLUE == ?? ]; then
+#    elif [ "$BLUE" == ?? ]; then
 #        echo "icon:$INSTALL_DIR/images/3.png" >&3
 
-#    elif [ $BLUE == ?? ]; then
+#    elif [ "$BLUE" == ?? ]; then
 #        echo "icon:$INSTALL_DIR/images/2.png" >&3
 
-#    elif [ $BLUE == ?? ]; then
+#    elif [ "$BLUE" == ?? ]; then
 #        echo "icon:$INSTALL_DIR/images/1.png" >&3
 
     else
