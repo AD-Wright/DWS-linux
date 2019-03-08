@@ -98,7 +98,9 @@ NEW_TS=`stat -c %y $FILE`
 if [ "$CURRENT_TS" != "$NEW_TS" ]; then
     # notify user if requested
     if [ $NOTIFY == 1 ]; then
-        yad --image "$INSTALL_DIR/defcon.jpg" --title "DEFCON level has changed"
+        yad --image "$INSTALL_DIR/defcon.jpg" \
+ --title "DEFCON level has changed" \
+ --no-buttons
     fi
 
     # read pixel from image, then update defcon index
@@ -132,7 +134,7 @@ if [ "$CURRENT_TS" != "$NEW_TS" ]; then
 fi
 
 # delay time between automatic refreshes, in seconds
-sleep $UPDATE_INT
+sleep $UPDATE_INT 
 
 # end loop
 done
