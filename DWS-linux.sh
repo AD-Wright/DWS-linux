@@ -19,6 +19,11 @@ UPDATE_INT=300
 NOTIFY=1
 
 ### END USER CONFIGURATION ###
+### TWITTER INTEGRATION (EXPERIMENTAL)
+##<a class="twitter-timeline" href="https://twitter.com/DEFCONWSALERTS?ref_src=twsrc%5Etfw">Tweets by DEFCONWSALERTS</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
 
 # check current status icon color
 DEFCON_COLOR=$(convert $INSTALL_DIR/defcon.jpg -crop '1x1+45+95'  \
