@@ -19,8 +19,9 @@ UPDATE_INT=300
 NOTIFY=1
 
 ### END USER CONFIGURATION ###
-### TWITTER INTEGRATION (EXPERIMENTAL)
-##<a class="twitter-timeline" href="https://twitter.com/DEFCONWSALERTS?ref_src=twsrc%5Etfw">Tweets by DEFCONWSALERTS</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+### TWITTER NOTIFICATION INTEGRATION (EXPERIMENTAL)
+## wget -O - https://twitter.com/DEFCONWSALERTS | \ 
+##grep js-tweet-text | grep -o ">.* - "
 
 
 
