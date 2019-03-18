@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # filename: DWS-linux.sh
 ###############################################################################
@@ -33,9 +33,9 @@ DEFCON=$(cat code.dat)
 #echo $DEFCON
 
 # start pipe for yad listening on exec 3 (this is how we change the icon)
-PIPE=$(mktemp -u --tmpdir ${0##*/}.XXXXXXXX)
-mkfifo $PIPE
-exec 3<> $PIPE
+PIPE=$(mktemp -u --tmpdir "${0##*/}".XXXXXXXX)
+mkfifo "$PIPE"
+exec 3<> "$PIPE"
 
 # make sure yad isn't already running (change if you use yad for other things)
 pkill yad
@@ -52,28 +52,33 @@ echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
 |Quit!quit" >&3
 
 # update yad with correct icon
-    if [ "$DEFCON" == "5" ]; then
+    if [ "$DEFCON" = "5" ]; then
         echo "icon:$INSTALL_DIR/images/5.png" >&3
 
-    elif [ "$DEFCON" == "4" ]; then
+    elif [ "$DEFCON" = "4" ]; then
         echo "icon:$INSTALL_DIR/images/4.png" >&3
 
-    elif [ "$DEFCON" == "3" ]; then
+    elif [ "$DEFCON" = "3" ]; then
         echo "icon:$INSTALL_DIR/images/3.png" >&3
 
-    elif [ "$DEFCON" == "2" ]; then
+    elif [ "$DEFCON" = "2" ]; then
         echo "icon:$INSTALL_DIR/images/2.png" >&3
 
-    elif [ "$DEFCON" == "1" ]; then
+    elif [ "$DEFCON" = "1" ]; then
         echo "icon:$INSTALL_DIR/images/1.png" >&3
 
     else
         echo "icon:$INSTALL_DIR/images/nc.png" >&3
-        echo "Error in icon assignment"
+        echo "Error in icon assignment - ignore if first run"
     fi
 
 # main while loop (check DWS every few minutes)
 while true; do
+
+# check that yad is still running, exit if not
+if ! pgrep "yad" >/dev/null; then
+    exit
+fi
 
 # get a copy of the current index
 OLD_CODE=$DEFCON
@@ -91,7 +96,7 @@ fi
 DEFCON=$(cat code.dat)
 if [ "$OLD_CODE" != "$DEFCON" ]; then
     # notify user if requested
-    if [ "$NOTIFY" == 1 ]; then
+    if [ "$NOTIFY" = "1" ]; then
 	wget --directory-prefix="$INSTALL_DIR" \
  --timestamping "https://defconwarningsystem.com/current/defcon.jpg"
         yad --image "$INSTALL_DIR/defcon.jpg" \
@@ -100,19 +105,19 @@ if [ "$OLD_CODE" != "$DEFCON" ]; then
     fi
 
     # update yad with correct icon
-    if [ "$DEFCON" == "5" ]; then
+    if [ "$DEFCON" = "5" ]; then
         echo "icon:$INSTALL_DIR/images/5.png" >&3
 
-    elif [ "$DEFCON" == "4" ]; then
+    elif [ "$DEFCON" = "4" ]; then
         echo "icon:$INSTALL_DIR/images/4.png" >&3
 
-    elif [ "$DEFCON" == "3" ]; then
+    elif [ "$DEFCON" = "3" ]; then
         echo "icon:$INSTALL_DIR/images/3.png" >&3
 
-    elif [ "$DEFCON" == "2" ]; then
+    elif [ "$DEFCON" = "2" ]; then
         echo "icon:$INSTALL_DIR/images/2.png" >&3
 
-    elif [ "$DEFCON" == "1" ]; then
+    elif [ "$DEFCON" = "1" ]; then
         echo "icon:$INSTALL_DIR/images/1.png" >&3
 
     else
