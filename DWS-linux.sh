@@ -45,6 +45,27 @@ echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
 |Help!xdg-open https://github.com/AD-Wright/DWS-linux\
 |Quit!quit" >&3
 
+# update yad with correct icon
+    if [ "$DEFCON" == "5" ]; then
+        echo "icon:$INSTALL_DIR/images/5.png" >&3
+
+    elif [ "$DEFCON" == "4" ]; then
+        echo "icon:$INSTALL_DIR/images/4.png" >&3
+
+    elif [ "$DEFCON" == "3" ]; then
+        echo "icon:$INSTALL_DIR/images/3.png" >&3
+
+    elif [ "$DEFCON" == "2" ]; then
+        echo "icon:$INSTALL_DIR/images/2.png" >&3
+
+    elif [ "$DEFCON" == "1" ]; then
+        echo "icon:$INSTALL_DIR/images/1.png" >&3
+
+    else
+        echo "icon:$INSTALL_DIR/images/nc.png" >&3
+        echo "Error in icon assignment"
+    fi
+
 # main while loop (check DWS every few minutes)
 while true; do
 
