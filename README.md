@@ -1,7 +1,7 @@
 # DWS-linux
 Defcon Warning System desktop app: for Linux!
 
-This repository provides a simple bash script to generate a icon in the system tray that displays the current defcon status, as determined by [The Defcon Warning System](https://defconwarningsystem.com/). The update interval, as well as notification preferences, can be set in DWS-linux.sh.
+This repository provides a simple shell script to generate a icon in the system tray that displays the current defcon status, as determined by [The Defcon Warning System](https://defconwarningsystem.com/). The update interval, as well as notification preferences, can be set in DWS-linux.sh.
 
 Ubuntu users may need to install the "TopIconsPlus" extension through Ubuntu Software -> Add-ons -> Shell Extensions in order to get the system tray icon to display.  The default icon size in this extension should also be set to 16 pixels, if you want the icon to look right.
 
@@ -17,7 +17,7 @@ To "install" this script, place in any user directory (home, Documents, etc.), a
 Try running the script from the command line.  Navigate to the directory in terminal, then run `./DWS-linux.sh`.  If there is an error message, proceed.
 - Wget errors are generally due to internet connectivity or file permission issues.
 - If the icon is not showing up in the system tray, try installing the TopIconsPlus shell extension.
-- If there is an icon assignment error, let me know - the RGB values probably need to be updated.  Uncommenting the DEBUG line will output the RGB value of the current image if you want to try it yourself.
+- If there is an icon assignment error, let me know - something might be wrong with fetching the current DEFCON state.  Uncommenting the DEBUG line will output the read-in value if you want to try some debugging yourself.
 
 ## Notes:
 This script was developed on an Ubuntu 18.04.2 install, and hasn't yet been tested on anything else.  Feel free to let me know other distros that this successfully works on, I'll add them to this page.
