@@ -1,2 +1,9 @@
 Version Alpha 0.1: 2019-03-07
  - Initial release
+
+Version Alpha 0.2: 2019-03-08
+ - Fixed "wget --no-netrc" not being supported on some distros
+
+Version Alpha 0.3: 2019-03-18
+ - Changed method of getting DEFCON level, no longer depends on ImageMagick
+
