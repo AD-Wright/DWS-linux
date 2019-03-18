@@ -12,8 +12,6 @@ To "install" this script, place in any user directory (home, Documents, etc.), a
   - `sudo apt-get install yad`
 - wget (tested 1.19.4)
   - `sudo apt-get install wget`
-- ImageMagick (tested 6.9.7-4)
-  - `sudo apt-get install imagemagick`
 
 ## Troubleshooting:
 Try running the script from the command line.  Navigate to the directory in terminal, then run `./DWS-linux.sh`.  If there is an error message, proceed.
@@ -26,6 +24,6 @@ This script was developed on an Ubuntu 18.04.2 install, and hasn't yet been test
 
 This script will not work on Windows or Android.  Don't know about Macs.  For Windows or Andriod, Defcon Warning System has [an official application](https://defconwarningsystem.com/links-tools/#Applications) that they provide.
 
-Support will be provided *as I have time, if I have time*.  My time is usually limited, so support may also be limited.  *I am not associated with Defcon Warning System, asking on their forums might not be welcome.*
+Support will be provided as I have time, if I have time.  My time is usually limited, so support may also be limited.  *I am not associated with Defcon Warning System, asking debugging questions on their forums might not be welcome.*
 
 Feature suggestions are welcome, but may not be implemented.  As a consolation, this is open-source and free.

@@ -12,8 +12,8 @@
 # installed directory (update after installation)
 INSTALL_DIR=~/Documents/DWS-linux
 
-# update interval: default 300 (5 minutes), please don't use a shorter interval
-UPDATE_INT=300
+# update interval: default 60 (1 minute), please don't use a shorter interval
+UPDATE_INT=60
 
 # notify if defcon level changes? (0 = no, 1 = yes)
 NOTIFY=1
@@ -26,17 +26,11 @@ NOTIFY=1
 
 
 
-# check current status icon color
-DEFCON_COLOR=$(convert $INSTALL_DIR/defcon.jpg -crop '1x1+45+95'  \
-txt:- | grep -oP 'b\([^\)]+' | tail -c +3)
+# grab last known status
+DEFCON=$(cat code.dat)
 
-# split current color into components by comma
-RED=$(echo $DEFCON_COLOR | cut -d "," -f 1)
-GREEN=$(echo $DEFCON_COLOR | cut -d "," -f 2)
-BLUE=$(echo $DEFCON_COLOR | cut -d "," -f 3)
-
-# for ease of determining values for 5,4,3,2,1 (DEBUG)
-#echo $RED.$GREEN.$BLUE
+# for ease of determining read value: 5,4,3,2,1 (DEBUG)
+#echo $DEFCON
 
 # start pipe for yad listening on exec 3 (this is how we change the icon)
 PIPE=$(mktemp -u --tmpdir ${0##*/}.XXXXXXXX)
@@ -57,40 +51,14 @@ echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
 |Help!xdg-open https://github.com/AD-Wright/DWS-linux\
 |Quit!quit" >&3
 
-# update icon according to last downloaded image
-if [ "$BLUE" == 92 ]; then
-    echo "icon:$INSTALL_DIR/images/5.png" >&3
-
-elif [ "$BLUE" == 254 ]; then
-    echo "icon:$INSTALL_DIR/images/4.png" >&3
-
-#elif [ "$BLUE" == ?? ]; then
-#    echo "icon:$INSTALL_DIR/images/3.png" >&3
-
-#elif [ "$BLUE" == ?? ]; then
-#    echo "icon:$INSTALL_DIR/images/2.png" >&3
-
-#elif [ "$BLUE" == ?? ]; then
-#    echo "icon:$INSTALL_DIR/images/1.png" >&3
-
-else
-    echo "icon:$INSTALL_DIR/images/nc.png" >&3
-    echo "No defcon image - is this the first run? Check INSTALL_DIR"
-fi
-
 # main while loop (check DWS every few minutes)
 while true; do
 
-# get a copy of the currently downloaded image
-FILE='defcon.jpg'
-CURRENT_TS=`stat -c %y $FILE`
+# get a copy of the current index
+OLD_CODE=$DEFCON
 
-# run wget to see if image timestamp has changed on server
-wget --no-http-keep-alive \
- --no-cookies \
- --user-agent="DWS-linux_test" \
- --directory-prefix="$INSTALL_DIR" \
- --timestamping "https://defconwarningsystem.com/current/defcon.jpg"
+# run wget to update code.dat
+wget "https://defconwarningsystem.com/code.dat" -O "$INSTALL_DIR/code.dat"
 
 # handle wget error
 if [ $? != 0 ]; then
@@ -98,38 +66,33 @@ if [ $? != 0 ]; then
     echo "wget error: $?"
 fi
 
-# check if wget downloaded an updated image
-NEW_TS=`stat -c %y $FILE`
-if [ "$CURRENT_TS" != "$NEW_TS" ]; then
+# check if wget downloaded an updated defcon index
+DEFCON=$(cat code.dat)
+if [ "$OLD_CODE" != "$DEFCON" ]; then
     # notify user if requested
     if [ "$NOTIFY" == 1 ]; then
+	wget --directory-prefix="$INSTALL_DIR" \
+ --timestamping "https://defconwarningsystem.com/current/defcon.jpg"
         yad --image "$INSTALL_DIR/defcon.jpg" \
  --title "DEFCON level has changed" \
  --no-buttons
     fi
 
-    # read pixel from image, then update defcon index
-    DEFCON_COLOR=$(convert $INSTALL_DIR/defcon.jpg -crop '1x1+45+95'  \
-    txt:- | grep -oP 'b\([^\)]+' | tail -c +3)
-    RED=$(echo $DEFCON_COLOR | cut -d "," -f 1)
-    GREEN=$(echo $DEFCON_COLOR | cut -d "," -f 2)
-    BLUE=$(echo $DEFCON_COLOR | cut -d "," -f 3)
-
     # update yad with correct icon
-    if [ "$BLUE" == 92 ]; then
+    if [ "$DEFCON" == "5" ]; then
         echo "icon:$INSTALL_DIR/images/5.png" >&3
 
-    elif [ "$BLUE" == 254 ]; then
+    elif [ "$DEFCON" == "4" ]; then
         echo "icon:$INSTALL_DIR/images/4.png" >&3
 
-#    elif [ "$BLUE" == ?? ]; then
-#        echo "icon:$INSTALL_DIR/images/3.png" >&3
+    elif [ "$DEFCON" == "3" ]; then
+        echo "icon:$INSTALL_DIR/images/3.png" >&3
 
-#    elif [ "$BLUE" == ?? ]; then
-#        echo "icon:$INSTALL_DIR/images/2.png" >&3
+    elif [ "$DEFCON" == "2" ]; then
+        echo "icon:$INSTALL_DIR/images/2.png" >&3
 
-#    elif [ "$BLUE" == ?? ]; then
-#        echo "icon:$INSTALL_DIR/images/1.png" >&3
+    elif [ "$DEFCON" == "1" ]; then
+        echo "icon:$INSTALL_DIR/images/1.png" >&3
 
     else
         echo "icon:$INSTALL_DIR/images/nc.png" >&3
@@ -139,7 +102,7 @@ if [ "$CURRENT_TS" != "$NEW_TS" ]; then
 fi
 
 # delay time between automatic refreshes, in seconds
-sleep $UPDATE_INT 
+sleep $UPDATE_INT
 
 # end loop
 done
