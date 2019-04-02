@@ -90,7 +90,7 @@ fi
 DEFCON=$(cat code.dat)
 if [ "$OLD_CODE" != "$DEFCON" ]; then
     # notify user if requested
-    if [ "$NOTIFY" = "1" & "$DEFCON" != "" & "$OLD_CODE" != ""]; then
+    if [ "$NOTIFY" = "1" ] && [ "$DEFCON" != "" ] && [ "$OLD_CODE" != "" ]; then
 	wget --directory-prefix="$INSTALL_DIR" \
  --timestamping "https://defconwarningsystem.com/current/defcon.jpg"
         yad --image "$INSTALL_DIR/defcon.jpg" \
