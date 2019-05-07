@@ -21,7 +21,7 @@ NOTIFY=1
 ### END USER CONFIGURATION ###
 
 # grab last known status
-DEFCON=$(cat code.dat)
+DEFCON=$(cat $INSTALL_DIR/code.dat)
 
 # for ease of determining read value: 5,4,3,2,1 (DEBUG)
 #echo $DEFCON
@@ -87,7 +87,7 @@ if [ $? != 0 ]; then
 fi
 
 # check if wget downloaded an updated defcon index
-DEFCON=$(cat code.dat)
+DEFCON=$(cat $INSTALL_DIR/code.dat)
 if [ "$OLD_CODE" != "$DEFCON" ]; then
     # notify user if requested
     if [ "$NOTIFY" = "1" ] && [ "$DEFCON" != "" ] && [ "$OLD_CODE" != "" ]; then
