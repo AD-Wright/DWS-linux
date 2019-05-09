@@ -19,6 +19,7 @@ Try running the script from the command line.  Navigate to the directory in term
 - If the icon is not showing up in the system tray, try installing the TopIconsPlus shell extension.
 - If there is an icon assignment error, let me know - something might be wrong with fetching the current DEFCON state.
 - If only the yad icon (a beaker) is showing up, try delaying the autostart by using `bash -c "sleep 10 && <path to script>"`
+
 Uncommenting the DEBUG line will output the read-in value if you want to try some debugging yourself.
 
 ## Notes:
