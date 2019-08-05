@@ -1,9 +1,26 @@
-Version Alpha 0.1: 2019-03-07
- - Initial release
+Version 3.3.3: 2019-08-05
+ - Fixed issue with "Refresh" command use resulting in multiple scripts running concurrently
+
+Version 3.3.2: 2019-05-07
+ - Resolved issue with status being stuck on "NC" if autostarted
+
+Version 3.3.1: 2019-04-02
+ - Actually does what previous version was supposed to do
+
+Version Alpha 3.3: 2019-03-25
+ - Now won't notify on change to/from "NC" state
+
+Version Alpha 3.2: 2019-03-19
+ - No longer depends on ImageMagick
+ - Switched to generic shell, better POSIX compliance
+
+Version Alpha 0.3: 2019-03-18
+ - Changed method of getting DEFCON level, no longer depends on ImageMagick
 
 Version Alpha 0.2: 2019-03-08
  - Fixed "wget --no-netrc" not being supported on some distros
 
-Version Alpha 0.3: 2019-03-18
- - Changed method of getting DEFCON level, no longer depends on ImageMagick
+Version Alpha 0.1: 2019-03-07
+ - Initial release
+
 
