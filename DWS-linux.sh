@@ -40,6 +40,9 @@ exec 3<> "$PIPE"
 # make sure yad isn't already running (change if you use yad for other things)
 pkill yad
 
+# kill previous instances of this script if still running
+kill $(pgrep -f 'DWS-linux.sh' | grep -v ^$$\$)
+
 # start yad with "no connection' icon
 yad --notification --kill-parent --listen <&3 &
 echo "icon:$INSTALL_DIR/images/nc.png" >&3
