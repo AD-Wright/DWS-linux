@@ -24,7 +24,7 @@ TWITTER=0
 ### END USER CONFIGURATION ###
 # start rsstail script only if twitter integration is desired
 if [ "$TWITTER" = "1" ]; then
-    $INSTALL_DIR/twitter.sh
+    $INSTALL_DIR/twitter.sh &
 fi
 
 # grab last known status
@@ -45,11 +45,12 @@ pkill yad
 kill $(pgrep -f 'DWS-linux.sh' | grep -v ^$$\$)
 
 # start yad with "no connection' icon
-yad --notification --kill-parent --listen <&3 &
+yad --notification --listen <&3 &
 echo "icon:$INSTALL_DIR/images/nc.png" >&3
 echo "visible:blink" >&3
 echo "tooltip:DWS_Notifier" >&3
-echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
+echo "menu:DWS Website!xdg-open https://defconwarningsystem.com\
+|DWS Twitter!xdg-open https://twitter.com/DEFCONWSALERTS\
 |Refresh!$INSTALL_DIR/DWS-linux.sh\
 |Open Folder!xdg-open $INSTALL_DIR\
 |Help!xdg-open https://github.com/AD-Wright/DWS-linux\
@@ -81,6 +82,8 @@ while true; do
 
 # check that yad is still running, exit if not
 if ! pgrep "yad" >/dev/null; then
+    pkill rsstail
+    pkill twitter.sh
     exit
 fi
 
