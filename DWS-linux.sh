@@ -18,13 +18,14 @@ UPDATE_INT=60
 # notify if defcon level changes? (0 = no, 1 = yes)
 NOTIFY=1
 
+# enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
+TWITTER=0
+
 ### END USER CONFIGURATION ###
-### TWITTER NOTIFICATION INTEGRATION (EXPERIMENTAL)
-## wget -O - https://twitter.com/DEFCONWSALERTS | \ 
-##grep js-tweet-text | grep -o ">.* - "
-
-
-
+# start rsstail script only if twitter integration is desired
+if [ "$TWITTER" = "1" ]; then
+    $INSTALL_DIR/twitter.sh
+fi
 
 # grab last known status
 DEFCON=$(cat $INSTALL_DIR/code.dat)
@@ -33,7 +34,7 @@ DEFCON=$(cat $INSTALL_DIR/code.dat)
 #echo $DEFCON
 
 # start pipe for yad listening on exec 3 (this is how we change the icon)
-PIPE=$(mktemp -u --tmpdir "${0##*/}".XXXXXXXX)
+PIPE=$(mktemp -u --tmpdir dws_yad.XXXXXX)
 mkfifo "$PIPE"
 exec 3<> "$PIPE"
 
