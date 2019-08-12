@@ -27,8 +27,10 @@ DWS_URL=https://queryfeed.net/tw?q=%40DEFCONWSALERTS
 # kill existing rsstail processes (change if you use for other things)
 pkill rsstail
 
+while true; do
+
 # use rsstail to check the twitter page, pipe output to yad with some formatting
 rsstail -i $UPDATE_INT -u $DWS_URL -n 0 -dNH | ( read -r T1 T2; read -r T3; yad --title="DWS_linux" --text="News: $T3 $T5" --wrap --geometry=300x150 --show-uri; )
 
-# read -r T4; read -r T5; T5=$(echo "$T5" | sed 's/\&/%26/'); T5=$(echo "$T5" | sed 's/….*//'); 
+done;
 
