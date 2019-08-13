@@ -19,11 +19,12 @@ UPDATE_INT=60
 NOTIFY=1
 
 # enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
-TWITTER=0
+TWITTER=1
 
 ### END USER CONFIGURATION ###
 # start rsstail script only if twitter integration is desired
 if [ "$TWITTER" = "1" ]; then
+    pkill twitter.sh
     $INSTALL_DIR/twitter.sh &
 fi
 
@@ -82,8 +83,8 @@ while true; do
 
 # check that yad is still running, exit if not
 if ! pgrep "yad" >/dev/null; then
-    pkill rsstail
     pkill twitter.sh
+    pkill rsstail
     exit
 fi
 
