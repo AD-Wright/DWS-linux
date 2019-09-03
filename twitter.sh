@@ -30,7 +30,7 @@ while true; do
 pkill rsstail
 
 # use rsstail to check the twitter page, pipe output to yad with some formatting
-rsstail -i $UPDATE_INT -u $DWS_URL -n 0 -dNH | ( read -r T1 T2; read -r T3; yad --title="DWS_linux" --text="News: $T3 $T5" --wrap --geometry=300x150 --show-uri; )
+rsstail -i $UPDATE_INT -u $DWS_URL -n 0 -dNHP | ( read -r T1 T2; read -r T3; yad --title="DWS_linux" --text="News: $T3 $T5" --wrap --geometry=300x150 --show-uri; )
 
 #rsstail -i 300 -u "https://queryfeed.net/tw?token=5d51b243-c413-4266-8235-c7e30a4a28f7&q=%40DEFCONWSALERTS" -n 1 -dNH 
 
