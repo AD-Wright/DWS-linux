@@ -81,7 +81,7 @@ fi
 OLD_CODE=$DEFCON
 
 # run wget to update code.dat
-wget "https://defconwarningsystem.com/code.dat" -O "$INSTALL_DIR/code.dat"
+wget "https://defconwarningsystem.com/code.dat" -O "$INSTALL_DIR/code.dat" -o "$INSTALL_DIR/log.txt"
 
 # handle wget error
 if [ $? != 0 ]; then
