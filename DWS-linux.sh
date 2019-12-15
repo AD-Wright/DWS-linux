@@ -69,11 +69,14 @@ echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
         echo "Error in icon assignment - ignore if first run"
     fi
 
+# pause to allow yad to fully start
+sleep 10
+
 # main while loop (check DWS every few minutes)
 while true; do
 
 # check that yad is still running, exit if not
-if ! pgrep "yad" >/dev/null; then
+if ! pgrep "yad" > /dev/null; then
     exit
 fi
 
