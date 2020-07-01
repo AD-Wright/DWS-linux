@@ -19,7 +19,7 @@ UPDATE_INT=60
 NOTIFY=1
 
 # enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
-TWITTER=1
+TWITTER=0
 
 ### END USER CONFIGURATION ###
 # start rsstail script only if twitter integration is desired
