@@ -18,7 +18,15 @@ UPDATE_INT=60
 # notify if defcon level changes? (0 = no, 1 = yes)
 NOTIFY=1
 
+# enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
+TWITTER=0
+
 ### END USER CONFIGURATION ###
+# start rsstail script only if twitter integration is desired
+if [ "$TWITTER" = "1" ]; then
+    pkill twitter.sh
+    $INSTALL_DIR/twitter.sh &
+fi
 
 # grab last known status
 DEFCON=$(cat $INSTALL_DIR/code.dat)
@@ -27,7 +35,8 @@ DEFCON=$(cat $INSTALL_DIR/code.dat)
 #echo $DEFCON
 
 # start pipe for yad listening on exec 3 (this is how we change the icon)
-PIPE=$(mktemp -u --tmpdir "${0##*/}".XXXXXXXX)
+PIPE=$(mktemp -u --tmpdir dws_yad.XXXXXX)
+
 mkfifo "$PIPE"
 exec 3<> "$PIPE"
 
@@ -38,11 +47,12 @@ pkill yad
 kill $(pgrep -f 'DWS-linux.sh' | grep -v ^$$\$)
 
 # start yad with "no connection' icon
-yad --notification --kill-parent --listen <&3 &
+yad --notification --listen <&3 &
 echo "icon:$INSTALL_DIR/images/nc.png" >&3
 echo "visible:blink" >&3
 echo "tooltip:DWS_Notifier" >&3
-echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
+echo "menu:DWS Website!xdg-open https://defconwarningsystem.com\
+|DWS Twitter!xdg-open https://twitter.com/DEFCONWSALERTS\
 |Refresh!$INSTALL_DIR/DWS-linux.sh\
 |Open Folder!xdg-open $INSTALL_DIR\
 |Help!xdg-open https://github.com/AD-Wright/DWS-linux\
@@ -69,14 +79,13 @@ echo "menu:DWS Website!xdg-open http://defconwarningsystem.com\
         echo "Error in icon assignment - ignore if first run"
     fi
 
-# pause to allow yad to fully start
-sleep 10
-
 # main while loop (check DWS every few minutes)
 while true; do
 
 # check that yad is still running, exit if not
-if ! pgrep "yad" > /dev/null; then
+if ! pgrep "yad" >/dev/null; then
+    pkill twitter.sh
+    pkill rsstail
     exit
 fi
 
@@ -84,7 +93,7 @@ fi
 OLD_CODE=$DEFCON
 
 # run wget to update code.dat
-wget "https://defconwarningsystem.com/code.dat" -O "$INSTALL_DIR/code.dat" -o "$INSTALL_DIR/log.txt"
+wget "https://defconwarningsystem.com/code.dat" -O "$INSTALL_DIR/code.dat"
 
 # handle wget error
 if [ $? != 0 ]; then
