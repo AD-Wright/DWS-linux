@@ -36,6 +36,7 @@ DEFCON=$(cat $INSTALL_DIR/code.dat)
 
 # start pipe for yad listening on exec 3 (this is how we change the icon)
 PIPE=$(mktemp -u --tmpdir dws_yad.XXXXXX)
+
 mkfifo "$PIPE"
 exec 3<> "$PIPE"
 
