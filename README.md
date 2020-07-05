@@ -13,6 +13,7 @@ To "install" this script, place in any user directory (home, Documents, etc.), a
   - `sudo apt-get install yad`
 - wget (tested 1.19.4)
   - `sudo apt-get install wget`  
+  
 Only required if twitter functionality is enabled:  
 - rsstail (tested 1.8) 
   - https://github.com/flok99/rsstail
