@@ -30,7 +30,7 @@ while true; do
 pkill rsstail
 
 # use rsstail to check the twitter page, pipe output to yad with some formatting
-rsstail -i $UPDATE_INT -u $DWS_URL -n 0 -dNHP | ( read -r T1 T2; read -r T3; yad --title="DWS_linux" --text="News: $T3 $T5" --wrap --geometry=300x150 --show-uri; )
+rsstail -i $UPDATE_INT -u $DWS_URL -n 0 -dNHP | ( read -r T1 T2; read -r T3; notify-send -u critical "DWS_linux" "News: $T3 $T5"; )
 
 #rsstail -i 300 -u "https://nitter.net/DEFCONWSALERTS/rss" -n 1 -dNH 
 
