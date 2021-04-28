@@ -19,7 +19,7 @@ UPDATE_INT=60
 NOTIFY=1
 
 # enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
-TWITTER=0
+TWITTER=1
 
 ### END USER CONFIGURATION ###
 # start rsstail script only if twitter integration is desired
@@ -61,21 +61,27 @@ echo "menu:DWS Website!xdg-open https://defconwarningsystem.com\
 # update yad with correct icon
     if [ "$DEFCON" = "5" ]; then
         echo "icon:$INSTALL_DIR/images/5.png" >&3
+        cp $INSTALL_DIR/images/5.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "4" ]; then
         echo "icon:$INSTALL_DIR/images/4.png" >&3
+        cp $INSTALL_DIR/images/4.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "3" ]; then
         echo "icon:$INSTALL_DIR/images/3.png" >&3
+        cp $INSTALL_DIR/images/3.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "2" ]; then
         echo "icon:$INSTALL_DIR/images/2.png" >&3
+        cp $INSTALL_DIR/images/2.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "1" ]; then
         echo "icon:$INSTALL_DIR/images/1.png" >&3
+        cp $INSTALL_DIR/images/1.png $INSTALL_DIR/images/current.png
 
     else
         echo "icon:$INSTALL_DIR/images/nc.png" >&3
+        cp $INSTALL_DIR/images/nc.png $INSTALL_DIR/images/current.png
         echo "Error in icon assignment - ignore if first run"
     fi
 
@@ -106,31 +112,33 @@ DEFCON=$(cat $INSTALL_DIR/code.dat)
 if [ "$OLD_CODE" != "$DEFCON" ]; then
     # notify user if requested
     if [ "$NOTIFY" = "1" ] && [ "$DEFCON" != "" ] && [ "$OLD_CODE" != "" ]; then
-	wget --directory-prefix="$INSTALL_DIR" \
- --timestamping "https://defconwarningsystem.com/current/defcon.jpg"
-        yad --image "$INSTALL_DIR/defcon.jpg" \
- --title "DEFCON level has changed" \
- --no-buttons
+        notify-send -u critical -i "$INSTALL_DIR/images/$DEFCON.png" "DEFCON level has changed"
     fi
 
     # update yad with correct icon
     if [ "$DEFCON" = "5" ]; then
         echo "icon:$INSTALL_DIR/images/5.png" >&3
+        cp $INSTALL_DIR/images/5.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "4" ]; then
         echo "icon:$INSTALL_DIR/images/4.png" >&3
+        cp $INSTALL_DIR/images/4.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "3" ]; then
         echo "icon:$INSTALL_DIR/images/3.png" >&3
+        cp $INSTALL_DIR/images/3.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "2" ]; then
         echo "icon:$INSTALL_DIR/images/2.png" >&3
+        cp $INSTALL_DIR/images/2.png $INSTALL_DIR/images/current.png
 
     elif [ "$DEFCON" = "1" ]; then
         echo "icon:$INSTALL_DIR/images/1.png" >&3
+        cp $INSTALL_DIR/images/1.png $INSTALL_DIR/images/current.png
 
     else
         echo "icon:$INSTALL_DIR/images/nc.png" >&3
+        cp $INSTALL_DIR/images/nc.png $INSTALL_DIR/images/current.png
         echo "Error in icon assignment"
     fi
 
