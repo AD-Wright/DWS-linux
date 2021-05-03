@@ -49,8 +49,8 @@ if [[ "$NEW_LINK" != "$LINK" ]]; then
     LINK=$( grep -som2 '<link>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
     DESCRIPTION=$( grep -som2 '<description>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
     # Convert some html number codes to prettify
-    TITLE=$( echo $TITLE | sed 's/&amp;/\&/g; s/&lt;/\</g; s/&gt;/\>/g; s/&quot;/\"/g; s/&#39;/\'"'"'/g;' )
-    DESCRIPTION=$( echo $DESCRIPTION | sed 's/&amp;/\&/g; s/&lt;/\</g; s/&gt;/\>/g; s/&quot;/\"/g; s/&#39;/\'"'"'/g;' )
+    TITLE=$( echo $TITLE | sed 's/&amp;/\&/g; s/&lt;/\</g; s/&gt;/\>/g; s/&quot;/\"/g; s/&#39;/\'"'"'/g; s/&#34;/\"/g;' ) 
+    DESCRIPTION=$( echo $DESCRIPTION | sed 's/&amp;/\&/g; s/&lt;/\</g; s/&gt;/\>/g; s/&quot;/\"/g; s/&#39;/\'"'"'/g; s/&#34;/\"/g;' | sed 's/<a href=\"//g; s/">/ /g; s/img src=\"\([a-z]*\).*\"//g; s/<\/\([a-z]*\)>//g; s/<br>//g;' )
     # Send the notification
     notify-send -u critical -i $INSTALL_DIR/images/current.png "$TITLE" "$DESCRIPTION \n $LINK"
 
