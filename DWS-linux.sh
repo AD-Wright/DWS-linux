@@ -8,23 +8,24 @@
 #                                                                             #
 ###############################################################################
 
-### USER CONFIGURATION ###
-# installed directory (update after installation)
+### BEGIN USER CONFIGURATION ###
+# installed directory (make sure this is correct or else it won't work)
 INSTALL_DIR=~/Documents/DWS-linux
 
-# update interval: default 60 (1 minute), please don't use a shorter interval
+# update interval to check the DEFCON level: Minimum & Default 60 (1 minute)
 UPDATE_INT=60
 
 # notify if defcon level changes? 
 NOTIFY=1   # (0 = no, 1 = yes, default is 1)
 
 # enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
+# (Disabling removes rsstail dependency)
 TWITTER=1   # (0 = no, 1 = yes, default is 1)
 
 # run in headless mode? 
 # (This option removes yad dependency, but also disables tray icon. Purely 
 # notify-send popups for changes in defcon level (and twitter if enabled).)
-HEADLESS=1   # (0 = no, 1 = yes, default is 0)
+HEADLESS=0   # (0 = no, 1 = yes, default is 0)
 
 ### END USER CONFIGURATION ###
 
@@ -111,7 +112,7 @@ fi
 # check if wget downloaded an updated defcon index
 DEFCON=$(cat $INSTALL_DIR/code.dat)
 if [ "$OLD_CODE" != "$DEFCON" ]; then
-    # notify user if requested
+    # notify user if requested and if the change isn't a loss of connection
     if [ "$NOTIFY" = "1" ] && [ "$DEFCON" != "" ] && [ "$OLD_CODE" != "" ]; then
         notify-send -u critical -i "$INSTALL_DIR/images/$DEFCON.png" "DEFCON level has changed"
     fi

@@ -11,24 +11,26 @@
 # THIS IS NOT THE MAIN FILE
 # This is a helper script, used to provide the twitter notifications through
 # notify-send and an rss feed.  This feed is hosted by me, and may briefly go
-# down if I move apartments.  If desired, the feed url can be pointed at an rss
-# provider of your choice, I have used nitter in the past, but it sometimes 
-# seems to error out.
+# down at times.  If desired, the feed url can be pointed at an rss provider 
+# of your choice, I have used nitter in the past, but it sometimes seems to 
+# error out.
 # This file does not need to be autostarted, but it should have exec permission
 # in order to be properly triggered by the DWS-linux main script.
 
-# USER CONFIG
+### BEGIN USER CONFIG ###
 # installed directory (update after installation)
 INSTALL_DIR=~/Documents/DWS-linux
 
-# update interval: default 300 (5 minutes in seconds)
-# (I provide the default feed, please do not spam with updates)
+# update interval for the twitter feed: default 300 (5 minutes in seconds)
+# (The default feed I provide has a cache time of 1 minute, so <60 is no bueno)
 UPDATE_INT=300
 
 # rss feed url for DEFCONWSALERTS
+# (This is a site I provide, since Twitter has removed rss options. You can also
+# point this at a Nitter instance or a personal twitter2rss page (see README).
 DWS_URL="https://defcon.ironeagl.com/dws-linux.xml"
 
-# END USER CONFIG
+### END USER CONFIG ###
 
 # Check last rss.xml download
 TITLE=$( grep -som2 '<title>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
@@ -37,7 +39,7 @@ DESCRIPTION=$( grep -som2 '<description>[^<]*' $INSTALL_DIR/dws-linux.xml | tail
 
 while true; do
 
-# Re-download rss.xml (if file has changed on server)
+# Re-download rss.xml (but only if file has changed on server)
 wget -Nq $DWS_URL
 
 # Grab new message link (links are unique for tweets)
