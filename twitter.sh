@@ -43,10 +43,11 @@ while true; do
 wget -Nq $DWS_URL
 
 # Grab new message link (links are unique for tweets)
-NEW_LINK=$( grep -som2 '<link>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n 1 | grep -so '[^>]*$')
+OLD_LINK=$LINK
+LINK=$( grep -som2 '<link>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n 1 | grep -so '[^>]*$')
 
 # If not the same, then display popup using notify-send
-if [[ "$NEW_LINK" != "$LINK" ]]; then
+if [[ "$LINK" != "$OLD_LINK" ]]; then
     TITLE=$( grep -som2 '<title>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
     LINK=$( grep -som2 '<link>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
     DESCRIPTION=$( grep -som2 '<description>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
