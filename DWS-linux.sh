@@ -109,6 +109,18 @@ if [ "$HEADLESS" = "0" ]; then
     fi
 fi
 
+# (for tray icon)
+if [ "$HEADLESS" = "0" ]; then
+    # check that yad is still running, exit if not
+    pidof "yad"
+    STATUS=$?
+    if [ $STATUS -eq 1 ]
+    then
+        pkill -f "twitter.sh"
+        exit
+    fi
+fi
+
 # check if wget downloaded an updated defcon index
 DEFCON=$(cat $INSTALL_DIR/code.dat)
 if [ "$OLD_CODE" != "$DEFCON" ]; then
@@ -116,16 +128,6 @@ if [ "$OLD_CODE" != "$DEFCON" ]; then
     if [ "$NOTIFY" = "1" ] && [ "$DEFCON" != "" ] && [ "$OLD_CODE" != "" ]; then
         notify-send -u critical -i "$INSTALL_DIR/images/$DEFCON.png" "DEFCON level has changed"
     fi
-    
-    # (for tray icon)
-    if [ "$HEADLESS" = "0" ]; then
-        # check that yad is still running, exit if not
-        if ! pgrep "yad" >/dev/null; then
-            pkill twitter.sh
-            pkill rsstail
-            exit
-        fi
-
         # update yad with correct icon
         if [ "$DEFCON" = "5" ]; then
             echo "icon:$INSTALL_DIR/images/5.png" >&3
@@ -152,7 +154,6 @@ if [ "$OLD_CODE" != "$DEFCON" ]; then
             cp $INSTALL_DIR/images/nc.png $INSTALL_DIR/images/current.png
             echo "Error in icon assignment"
         fi
-    fi
 fi
 
 # delay time between automatic refreshes, in seconds
