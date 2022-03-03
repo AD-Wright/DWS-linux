@@ -23,7 +23,7 @@ INSTALL_DIR=~/Documents/DWS-linux
 
 # update interval for the twitter feed: default 300 (5 minutes in seconds)
 # (The default feed I provide has a cache time of 1 minute, so <60 is no bueno)
-UPDATE_INT=300
+UPDATE_INT=60
 
 # rss feed url for DEFCONWSALERTS
 # (This is a site I provide, since Twitter has removed rss options. You can also
@@ -32,18 +32,29 @@ DWS_URL="https://defcon.ironeagl.com/dws-linux.xml"
 
 ### END USER CONFIG ###
 
-# Check last rss.xml download
-TITLE=$( grep -som2 '<title>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n1 | grep -so '[^>]*$')
+# Check if dws-linux.xml (rss feed) has been downloaded before
+if [ -f $INSTALL_DIR/dws-linux.xml ]
+then
+    # No op
+    sleep 1
+else
+    # First (or bugged) install, so download the rss feed
+    wget --directory-prefix=$INSTALL_DIR --server-response $DWS_URL
+fi
+
+# Check last dws-linux.xml download
+TITLE=$( grep -som2 '<title>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n 1 | grep -so '[^>]*$')
 LINK=$( grep -som2 '<link>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n 1 | grep -so '[^>]*$')
 DESCRIPTION=$( grep -som2 '<description>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n 1 | grep -so '[^>]*$')
 
+# MAIN LOOP
 while true; do
 
 # Re-download rss.xml (but only if file has changed on server)
-wget -Nq $DWS_URL
+wget --directory-prefix=$INSTALL_DIR --server-response --timestamping $DWS_URL
 
 # Grab new message link (links are unique for tweets)
-OLD_LINK=$LINK
+OLD_LINK=$(echo $LINK)
 LINK=$( grep -som2 '<link>[^<]*' $INSTALL_DIR/dws-linux.xml | tail -n 1 | grep -so '[^>]*$')
 
 # If not the same, then display popup using notify-send
