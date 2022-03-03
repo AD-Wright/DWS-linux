@@ -59,6 +59,7 @@ if [ "$HEADLESS" = "0" ]; then
     echo "visible:blink" >&3
     echo "tooltip:DWS_Notifier" >&3
     echo "menu:DWS Website!xdg-open https://defconwarningsystem.com\
+|DWS Forums!xdg-open https://community.defconwarningsystem.com\
 |DWS Twitter!xdg-open https://twitter.com/DEFCONWSALERTS\
 |Refresh!$INSTALL_DIR/DWS-linux.sh\
 |Open Folder!xdg-open $INSTALL_DIR\
