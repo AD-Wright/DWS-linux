@@ -32,9 +32,7 @@ Ubuntu users may need to install the "TopIconsPlus" extension through Ubuntu Sof
 Try running the script from the command line.  Navigate to the directory in terminal, then run `./DWS-linux.sh`.  If there is an error message, proceed with debugging from there.
 - Wget errors are generally due to internet connectivity or file permission issues.
 - If the icon is not showing up in the system tray, try installing the TopIconsPlus shell extension.
-- If there is an icon assignment error, open an issue - something might be wrong with fetching the current DEFCON state.
 - If only the yad icon (a beaker) is showing up, try delaying the autostart by using `bash -c "sleep 10 && <path to script>"`.  You can also right-click the icon for a menu and select "refresh".
-- If you very rarely restart your computer, and you are running Ubuntu 18.04, then sometimes notify-send will bug out?  The result of this is that you will not get the popup notifications.  I have no idea how to fix it, other than occasionally right-clicking on the tray icon and selecting "refresh".
 
 ## Notes:
 This script was developed on an Ubuntu 18.04.4 install, and is occasionally tested on other distros.  I have made efforts to try to ensure compatibility across most distributions, but can't guarantee much.  However, if you do have issues on a specific linux distribution, feel free to create an issue and I'll see if I can fix it!
