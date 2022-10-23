@@ -13,7 +13,7 @@
 # notify-send and an rss feed.  This feed is hosted by me, and may briefly go
 # down at times.  If desired, the feed url can be pointed at an rss provider 
 # of your choice, I have used nitter in the past, but it sometimes seems to 
-# error out.
+# error out (and has a long cache time).
 # This file does not need to be autostarted, but it should have exec permission
 # in order to be properly triggered by the DWS-linux main script.
 
@@ -21,8 +21,8 @@
 # installed directory (update after installation)
 INSTALL_DIR=~/Documents/DWS-linux
 
-# update interval for the twitter feed: default 300 (5 minutes in seconds)
-# (The default feed I provide has a cache time of 1 minute, so <60 is no bueno)
+# update interval for the twitter feed: default 60 (1 minute in seconds)
+# (The default feed I provide has a cache time of 1 minute, so <60 is pointless)
 UPDATE_INT=60
 
 # rss feed url for DEFCONWSALERTS
