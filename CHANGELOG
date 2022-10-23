@@ -1,3 +1,30 @@
+Version 5.4.1: 2022-
+ - Updated the changelog file
+ - Updated README
+ - Clarified comments throughout
+ 
+Version 5.4: 2022-03-18
+ - Changed the icon color scheme to improve readability across all defcon levels
+ - If you prefer the old icons, they can be downloaded and used by replacing the "images" folder
+ 
+Version 5.3: 2022-03-06
+ - Finally resolved issue where the notification would sometimes not function if script was auto-started on login
+ 
+Version 5.2: 2022-02-25
+ - Resolved issue where the scripts would stay active after the tray icon had been closed
+ 
+Version 5.1: 2022-02-24
+ - Yet more tweaks to the Twitter monitoring
+ 
+Version 5.0: 2022-02-21
+ - Changed notification method from pure YAD to notify-send to improve compatibility
+ - Added "headless" mode that only provides updates, does not depend on YAD
+ - Improved the robustness of monitoring the DWS Twitter page, now on by default
+ - Extended the documentation
+ 
+Version 4.0: 2020-07-04
+ - Incorporated optional ability to monitor the DWS Twitter page
+ 
 Version 3.3.3: 2019-08-05
  - Fixed issue with "Refresh" command use resulting in multiple scripts running concurrently
 
