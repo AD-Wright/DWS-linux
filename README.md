@@ -1,6 +1,11 @@
 # DWS-linux
 Defcon Warning System desktop app: for Linux!
 
+#### Note of Caution:  
+Due to the ongoing state of change at Twitter (currently called X), consistently getting a Twitter feed into RSS format has proved difficult.  The feed link I provide may not always be up-to-date or even in working order.  If you have a suggestion for a better source please feel free to mention it in an issue.  I will try to resolve the issues that come up, but I am anticipating an implosion that makes the Twitter feature no longer necessary.  In that case it will be removed.  However, note that the defcon status does not depend on Twitter and should always be operational.
+
+#### What is DWS-linux?
+
 This repository provides a simple shell script to generate a icon in the system tray that displays the current defcon status, as determined by [The Defcon Warning System](https://defconwarningsystem.com/). By default, notifications are also generated each time the defcon status changes, and whenever a new tweet is posted on the [DEFCONWSALERTS](https://twitter.com/DEFCONWSALERTS) Twitter page.  The update interval, as well as notification preferences, can be set in the "User Configuration" section of `DWS-linux.sh`.  Twitter checks can be disabled, and in fact the tray icon can be disabled as well, leaving a "headless" version with just the notification pop-ups.  This headless version only has `notify-send` and `wget` as dependencies, so if you have issues with `yad` you can still have some functionality.
 
 In the interest of full disclosure, since Twitter has disabled the rss feed option, the solution I found involved hosting my own rss feed at [defcon.ironeagl.com](https://defcon.ironeagl.com/dws-linux.xml).  I use a slightly modified version of [twitter2rss](https://github.com/n0madic/twitter2rss) that has a caching time of 1 minute to enable reasonable update speed.  If you dislike this, you can disable the twitter feature entirely in the DWS-linux.sh config section, or change the url to an rss feed of your liking in the twitter.sh config section.  
