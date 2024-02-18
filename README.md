@@ -47,7 +47,4 @@ This script is used daily by the developer on an Ubuntu 20.04 install, and is oc
 
 This script will not work on Windows or Android.  I don't have the ability to test it on Macs, but it will probably not work.  For Windows or Andriod, Defcon Warning System has [an official application](https://defconwarningsystem.com/links-tools/#Applications) that they provide.
 
-If you really like this program, I do take donations in [Monero](https://www.getmonero.org/), only because I incur a (very small) cost in providing the Twitter feed.  
-Monero Address: `496oKUfbedq6WP6EffFbjy6RmHxE2mpFKeJxPTZ9dtHzisq6yv6AsDT871TGxWG3cXNr3b5nnvg6E14RtvYcNNsb1FMDvJ9`
-
 I would encourage you to donate to [DefconWarningSystem](https://defconwarningsystem.com/) as well.
