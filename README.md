@@ -1,25 +1,13 @@
 # DWS-linux
 Defcon Warning System desktop app: for Linux!
 
-#### Note of Caution:  
-Due to the ongoing state of change at Twitter (currently called X), consistently getting a Twitter feed into RSS format has proved difficult.  The feed link I provide may not always be up-to-date or even in working order.  If you have a suggestion for a better source please feel free to mention it in an issue.  I will try to resolve the issues that come up, but I am anticipating an implosion that makes the Twitter feature no longer necessary.  In that case it will be removed.  However, note that the defcon status does not depend on Twitter and should always be operational.
-
 #### What is DWS-linux?
 
-This repository provides a simple shell script to generate a icon in the system tray that displays the current defcon status, as determined by [The Defcon Warning System](https://defconwarningsystem.com/). By default, notifications are also generated each time the defcon status changes, and whenever a new tweet is posted on the [DEFCONWSALERTS](https://twitter.com/DEFCONWSALERTS) Twitter page.  The update interval, as well as notification preferences, can be set in the "User Configuration" section of `DWS-linux.sh`.  Twitter checks can be disabled, and in fact the tray icon can be disabled as well, leaving a "headless" version with just the notification pop-ups.  This headless version only has `notify-send` and `wget` as dependencies, so if you have issues with `yad` you can still have some functionality.
+This repository provides a simple shell script to generate a icon in the system tray that displays the current defcon status, as determined by [The Defcon Warning System](https://defconwarningsystem.com/). By default, notifications are also generated each time the defcon status changes.  The update interval, as well as notification preferences, can be set in the "User Configuration" section of `DWS-linux.sh`.  The tray icon can be disabled as well, leaving a "headless" version with just the notification pop-ups.  This headless version only has `notify-send` and `wget` as dependencies, so if you have issues with `yad` you can still have some functionality.
 
-In the interest of full disclosure, since Twitter has disabled the rss feed option, the solution I found involved hosting my own rss feed at [defcon.ironeagl.com](https://defcon.ironeagl.com/dws-linux.xml).  I use a slightly modified version of [twitter2rss](https://github.com/n0madic/twitter2rss) that has a caching time of 1 minute to enable reasonable update speed.  If you dislike this, you can disable the twitter feature entirely in the DWS-linux.sh config section, or change the url to an rss feed of your liking in the twitter.sh config section.  
+To "install" this script, download the repository into any user directory (home, Documents, etc.), and update the `INSTALL_DIR` variable in `DWS-linux.sh` to the directory of the repository (e.g. `~/Documents/DWS-linux`).  Make sure that the scripts are also given execution rights, either through `chmod +x DWS-linux.sh` or through checking the tick box in file properties.  To ensure the script is launched every time you turn on your computer, add the `DWS-linux.sh` script to Startup Applications or the like.  
 
-Example alternative rss sources:
-- `https://nitter.net/DEFCONWSALERTS/rss`  (~10 minute cache time, it seems.  Too-frequent requests may lead to you being blocked.)
-- `https://<twitter2rss>/DEFCONWSALERTS?count=5&exclude_replies=on` (choose your own cache time by hosting your own image)
-	- Github page here: [twitter2rss](https://github.com/n0madic/twitter2rss)
-	- Docker image here: [dockerhub](https://hub.docker.com/r/n0madic/twitter2rss)
-- [Many other options](https://duckduckgo.com/?q=twitter+rss+feed)
-
-To "install" this script, download the repository into any user directory (home, Documents, etc.), and update the `INSTALL_DIR` variable in `DWS-linux.sh` and `twitter.sh` to the directory of the repository (e.g. `~/Documents/DWS-linux`).  Make sure that the scripts are also given execution rights, either through `chmod +x DWS-linux.sh` and `chmod +x twitter.sh` or through checking the tick box in file properties.  To ensure the script is launched every time you turn on your computer, add the `DWS-linux.sh` script to Startup Applications or the like (`twitter.sh` will auto-start if needed).  
-
-There is also a utility menu if you right-click on the tray icon, with links to the [DWS webpage](https://defconwarningsystem.com), [DWS Forums](https://community.defconwarningsystem.com), [DWS twitter](https://twitter.com/DEFCONWSALERTS), the `install` folder on your computer, a refresh command, etc.
+There is also a utility menu if you right-click on the tray icon, with links to the [DWS webpage](https://defconwarningsystem.com), [DWS Forums](https://community.defconwarningsystem.com), the `install` folder on your computer, a refresh command, etc.
 
 ## Dependencies:
 - `yad` (tested 0.40.0 (GTK+ 3.24.20)) 
@@ -43,7 +31,7 @@ If the script fails to run, try running the script from the command line.  Navig
 - If only the yad icon (a beaker) is showing up, try delaying the autostart by using `bash -c "sleep 10 && <path to script>"`.  You can also right-click the icon for a menu and select "refresh" on every startup.
 
 ## Notes:
-This script is used daily by the developer on an Ubuntu 20.04 install, and is occasionally tested on other distros.  I have made efforts to try to ensure compatibility across most distributions, but can't guarantee much.  However, if you do have issues on a specific linux distribution, feel free to create an issue and I'll see if I can fix it!
+This script is used daily by the developer on an PopOS 22.04 install, and is occasionally tested on other distros.  I have made efforts to try to ensure compatibility across most distributions, but can't guarantee much.  However, if you do have issues on a specific linux distribution, feel free to create an issue and I'll see if I can fix it!
 
 This script will not work on Windows or Android.  I don't have the ability to test it on Macs, but it will probably not work.  For Windows or Andriod, Defcon Warning System has [an official application](https://defconwarningsystem.com/links-tools/#Applications) that they provide.
 
