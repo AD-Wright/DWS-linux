@@ -18,10 +18,6 @@ UPDATE_INT=60
 # notify if defcon level changes? 
 NOTIFY=1   # (0 = no, 1 = yes, default is 1)
 
-# enable / allow checking for updates to the DEFCONWSALERTS Twitter page?
-# (Disabling removes rsstail dependency)
-TWITTER=1   # (0 = no, 1 = yes, default is 1)
-
 # run in headless mode? 
 # (This option removes yad dependency, but also disables tray icon. Purely 
 # notify-send popups for changes in defcon level (and twitter if enabled).)
@@ -31,12 +27,6 @@ HEADLESS=0   # (0 = no, 1 = yes, default is 0)
 
 # kill previous instances of this script if still running
 kill $(pgrep -f 'DWS-linux.sh' | grep -v ^$$\$)
-
-# start rsstail script only if twitter integration is desired
-if [ "$TWITTER" = "1" ]; then
-    pkill twitter.sh
-    $INSTALL_DIR/twitter.sh &
-fi
 
 # grab last known status
 DEFCON=$(cat $INSTALL_DIR/code.dat)
@@ -60,7 +50,6 @@ if [ "$HEADLESS" = "0" ]; then
     echo "tooltip:DWS_Notifier" >&3
     echo "menu:DWS Website!xdg-open https://defconwarningsystem.com\
 |DWS Forums!xdg-open https://community.defconwarningsystem.com\
-|DWS Twitter!xdg-open https://twitter.com/DEFCONWSALERTS\
 |Refresh!$INSTALL_DIR/DWS-linux.sh\
 |Open Folder!xdg-open $INSTALL_DIR\
 |Help!xdg-open https://github.com/AD-Wright/DWS-linux\
